@@ -27,7 +27,7 @@ var AlexaSkill = require('./AlexaSkill'),
 var APP_ID = undefined; //replace with 'amzn1.echo-sdk-ams.app.[your-unique-value-here]';
 
 /**
- * MinecraftHelper is a child of AlexaSkill.
+ * ChessOpeningHelper is a child of AlexaSkill.
  * To read more about inheritance in JavaScript, see the link below.
  *
  * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Introduction_to_Object-Oriented_JavaScript#Inheritance
@@ -37,18 +37,18 @@ var ChessOpeningHelper = function () {
 };
 
 // Extend AlexaSkill
-MinecraftHelper.prototype = Object.create(AlexaSkill.prototype);
-MinecraftHelper.prototype.constructor = MinecraftHelper;
+ChessOpeningHelper.prototype = Object.create(AlexaSkill.prototype);
+ChessOpeningHelper.prototype.constructor = ChessOpeningHelper;
 
-MinecraftHelper.prototype.eventHandlers.onLaunch = function (launchRequest, session, response) {
-    var speechText = "Welcome to the Minecraft Helper. You can ask a question like, what's the recipe for a chest? ... Now, what can I help you with.";
+ChessOpeningHelper.prototype.eventHandlers.onLaunch = function (launchRequest, session, response) {
+    var speechText = "Welcome to the Chess Opening Helper. You can ask a question like, what are the opening moves in the Ruy Lopez?... Now, what can I help you with.";
     // If the user either does not reply to the welcome message or says something that is not
     // understood, they will be prompted again with this text.
     var repromptText = "For instructions on what you can say, please say help me.";
     response.ask(speechText, repromptText);
 };
 
-MinecraftHelper.prototype.intentHandlers = {
+ChessOpeningHelper.prototype.intentHandlers = {
     "RecipeIntent": function (intent, session, response) {
         var itemSlot = intent.slots.Item,
             itemName;
@@ -56,7 +56,7 @@ MinecraftHelper.prototype.intentHandlers = {
             itemName = itemSlot.value.toLowerCase();
         }
 
-        var cardTitle = "Recipe for " + itemName,
+        var cardTitle = "Moves for " + itemName,
             recipe = recipes[itemName],
             speechOutput,
             repromptOutput;
@@ -69,9 +69,9 @@ MinecraftHelper.prototype.intentHandlers = {
         } else {
             var speech;
             if (itemName) {
-                speech = "I'm sorry, I currently do not know the recipe for " + itemName + ". What else can I help with?";
+                speech = "I'm sorry, I currently do not know the moves for the " + itemName + ". What else can I help with?";
             } else {
-                speech = "I'm sorry, I currently do not know that recipe. What else can I help with?";
+                speech = "I'm sorry, I currently do not know that opening. What else can I help with?";
             }
             speechOutput = {
                 speech: speech,
@@ -96,8 +96,8 @@ MinecraftHelper.prototype.intentHandlers = {
     },
 
     "AMAZON.HelpIntent": function (intent, session, response) {
-        var speechText = "You can ask questions about minecraft such as, what's the recipe for a chest, or, you can say exit... Now, what can I help you with?";
-        var repromptText = "You can say things like, what's the recipe for a chest, or you can say exit... Now, what can I help you with?";
+        var speechText = "You can ask questions about chess openings such as, what are the moves of the english?, or, you can say exit... Now, what can I help you with?";
+        var repromptText = "You can say things like, what are the moves for the Kings Indian, or you can say exit... Now, what can I help you with?";
         var speechOutput = {
             speech: speechText,
             type: AlexaSkill.speechOutputType.PLAIN_TEXT
@@ -111,6 +111,6 @@ MinecraftHelper.prototype.intentHandlers = {
 };
 
 exports.handler = function (event, context) {
-    var minecraftHelper = new MinecraftHelper();
-    minecraftHelper.execute(event, context);
+    var chessOpeningHelper = new ChessOpeningHelper();
+    chessOpeningHelper.execute(event, context);
 };
