@@ -19,12 +19,10 @@
  *  Alexa: "(reads back opening for open game)"
  */
 
-'use strict';
-
 var AlexaSkill = require('./AlexaSkill'),
     recipes = require('./openings');
 
-var APP_ID = undefined; //replace with 'amzn1.echo-sdk-ams.app.[your-unique-value-here]';
+var APP_ID = 'amzn1.echo-sdk-ams.app.ddb141aa-5c06-4f84-a685-24dc2cd998d9'; //replace with 'amzn1.echo-sdk-ams.app.[your-unique-value-here]';
 
 /**
  * ChessOpeningHelper is a child of AlexaSkill.
